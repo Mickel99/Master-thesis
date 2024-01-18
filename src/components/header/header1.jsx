@@ -22,8 +22,8 @@ const Header1 = () => {
       sx={{
         bgcolor: "#A9957B",
         padding: "8px",
-        borderBottomRightRadius: 20,
-        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 8,
+        borderBottomLeftRadius: 8,
 
       }}
     >
@@ -34,7 +34,7 @@ const Header1 = () => {
             mr: 2,
             p: "4px 10px",
             bgcolor: "#D23F57",
-            borderRadius: "12px",
+            borderRadius: "15px",
             fontSize: "12px",
             fontWeight: "bold",
             color: "#fff",
