@@ -1,18 +1,35 @@
 import PersonIcon from "@mui/icons-material/Person";
-import { IconButton, Container, Stack, Typography } from "@mui/material";
-import { ExpandMore, ShoppingCartOutlined } from "@mui/icons-material";
+import { IconButton, Container, Stack, Typography, Box, Accordion, AccordionSummary, ListItem, ListItemButton, List } from "@mui/material";
+
 import SearchIcon from "@mui/icons-material/Search";
-import { styled, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
+
+import SecurityUpdateGoodOutlinedIcon from '@mui/icons-material/SecurityUpdateGoodOutlined';
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useState } from "react";
 import { useTheme } from "@emotion/react";
+import Button from "@mui/material/Button";
+
+import MenuIcon from "@mui/icons-material/Menu";
+import WindowIcon from "@mui/icons-material/Window";
+import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
+
+import PhoneAndroidOutlinedIcon from "@mui/icons-material/PhoneAndroidOutlined";
+import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
+import CableOutlinedIcon from "@mui/icons-material/CableOutlined";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+
+import Drawer from '@mui/material/Drawer';
+import { Close } from "@mui/icons-material";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
+
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -29,7 +46,7 @@ const Search = styled("div")(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   border: "1px solid #777",
   "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    border: "1px solid #333",
   },
   marginRight: theme.spacing(2),
   marginLeft: 0,
@@ -66,37 +83,46 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const options = ["All Categories", "Phone cases", "Screen potecter", "Charger"];
-
 const Header2 = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(1);
   const open = Boolean(anchorEl);
-  const handleClickListItem = (event) => {
+  const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
-    setAnchorEl(null);
-  };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   const theme = useTheme();
 
+  const [state, setState] = useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+
   return (
     <Container sx={{ my: 3, display: "flex", justifyContent: "space-between" }}>
       <Stack>
-        {/* logo change later */}
-        <ShoppingCartOutlined />
-        <Typography variant="body2">ExamensBok</Typography>
+
+        <SecurityUpdateGoodOutlinedIcon sx={{ marginLeft: 0.7,}}/>
+        <Typography variant="body2"> Trello</Typography>
       </Stack>
+
       <Search
         sx={{
           display: "flex",
+          alignItems: "center",
           borderRadius: "22px",
           justifyContent: "space-between",
         }}
@@ -107,64 +133,69 @@ const Header2 = () => {
         <StyledInputBase
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
+          sx={{ flexGrow: 1}}
         />
 
         <div>
-          <List
-            component="nav"
-            aria-label="Device settings"
-            sx={{
-              bgcolor: theme.palette.myColor.main,
-              borderBottomRightRadius: 25,
-              borderTopRightRadius: 25,
-              p: "0",
-            }}
-          >
-            <ListItemButton
-              id="lock-button"
-              aria-haspopup="listbox"
-              aria-controls="lock-menu"
-              aria-label="when device is locked"
+          <Box>
+            <Button
+
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
               aria-expanded={open ? "true" : undefined}
-              onClick={handleClickListItem}
+              onClick={handleClick}
+              sx={{
+                borderBottomRightRadius: 23,
+                borderTopRightRadius: 22,
+                bgcolor: theme.palette.myColor.main,
+                color: theme.palette.text.primary,
+                padding: "9px", 
+              }}
             >
-              <ListItemText
+              <WindowIcon />
+              <Typography
                 sx={{
-                  width: 90,
-                  textAlign: "center",
-                  "&:hover": { cursor: "pointer" },
+                  padding: "0",
+                  textTransform: "capitalize",
+                  mx: 1,
                 }}
-                // className="border"
-                secondary={options[selectedIndex]}
-              />
-              <ExpandMore
-                sx={{
-                  fontSize: "15px",
-                }}
-              />
-            </ListItemButton>
-          </List>
-          <Menu
-            id="lock-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "lock-button",
-              role: "listbox",
-            }}
-          >
-            {options.map((option, index) => (
-              <MenuItem
-                sx={{ fontSize: "13px" }}
-                key={option}
-                selected={index === selectedIndex}
-                onClick={(event) => handleMenuItemClick(event, index)}
               >
-                {option}
-              </MenuItem>
-            ))}
-          </Menu>
+                Categories
+              </Typography>
+              <KeyboardArrowRightOutlinedIcon />
+            </Button>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <PhoneAndroidOutlinedIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Cases </ListItemText>
+          </MenuItem>
+ 
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <ShieldOutlinedIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Screen protecter</ListItemText>
+          </MenuItem>
+ 
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <CableOutlinedIcon fontSize="small" />
+            </ListItemIcon>
+            <ListItemText>Charger</ListItemText>
+          </MenuItem>
+            </Menu>
+          </Box>
         </div>
       </Search>
 
@@ -178,6 +209,85 @@ const Header2 = () => {
         <IconButton>
           <PersonIcon />
         </IconButton>
+
+        <IconButton onClick={toggleDrawer("top", true)}>
+          <MenuIcon />
+        </IconButton>
+
+        <Drawer
+            anchor={"top"}
+            open={state["top"]}
+            onClose={toggleDrawer("top", false)}
+            sx={{ ".MuiPaper-root.css-1sozasi-MuiPaper-root-MuiDrawer-paper": {
+              height: "100%",}
+            }}
+          >
+
+
+<Box
+          sx={{ width: 444, mx: "auto", mt: 6, position: "relative", pt: 10 }}
+        >
+          <IconButton
+            sx={{
+              ":hover": { color: "red", rotate: "180deg", transition: "0.3s" },
+              position: "absolute",
+              top: 0,
+              right: 10,
+            }}
+            onClick={toggleDrawer("top", false)}
+          >
+            <Close />
+          </IconButton>
+
+          {[
+            { mainLink: "Home", subLinks: ["Link 1", "Link 2", "Link 3"] },
+            { mainLink: "Mega menu", subLinks: ["Link 1", "Link 2", "Link 3"] },
+            {
+              mainLink: "full screen menu",
+              subLinks: ["Link 1", "Link 2", "Link 3"],
+            },
+            { mainLink: "pages", subLinks: ["Link 1", "Link 2", "Link 3"] },
+            {
+              mainLink: "user account",
+              subLinks: ["Link 1", "Link 2", "Link 3"],
+            },
+            {
+              mainLink: "vendor account",
+              subLinks: ["Link 1", "Link 2", "Link 3"],
+            },
+          ].map((item) => {
+            return (
+              <Accordion
+                key={item.mainLink}
+                elevation={0}
+                sx={{ bgcolor: "initial" }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>{item.mainLink}</Typography>
+                </AccordionSummary>
+
+                <List sx={{ py: 0, my: 0 }}>
+                  {item.subLinks.map((link) => {
+                    return (
+                      <ListItem key={link} sx={{ py: 0, my: 0 }}>
+                        <ListItemButton>
+                          <ListItemText primary={link} />
+                        </ListItemButton>
+                      </ListItem>
+                    );
+                  })}
+                </List>
+              </Accordion>
+            );
+          })}
+        </Box>
+
+          </Drawer>
+          
       </Stack>
     </Container>
   );
