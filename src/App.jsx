@@ -6,6 +6,7 @@ import Header3 from "./components/header/header3";
 import Hero from "./components/hero/hero";
 import CardSection from "./components/hero/CardSection";
 import Footer from "./components/footer/footer";
+import Main from "./components/main/main";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -18,6 +19,7 @@ function App() {
         <Header2 />
         <Header3 />
         <Hero />
+        <Main />
         <CardSection />
         <Footer/>
       </ThemeProvider>
