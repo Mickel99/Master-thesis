@@ -1,5 +1,17 @@
 import PersonIcon from "@mui/icons-material/Person";
-import { IconButton, Container, Stack, Typography, Box, Accordion, AccordionSummary, ListItem, ListItemButton, List } from "@mui/material";
+import {
+  IconButton,
+  Container,
+  Stack,
+  Typography,
+  Box,
+  Accordion,
+  AccordionSummary,
+  ListItem,
+  ListItemButton,
+  List,
+  useMediaQuery,
+} from "@mui/material";
 
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
@@ -7,7 +19,7 @@ import InputBase from "@mui/material/InputBase";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 
-import SecurityUpdateGoodOutlinedIcon from '@mui/icons-material/SecurityUpdateGoodOutlined';
+import SecurityUpdateGoodOutlinedIcon from "@mui/icons-material/SecurityUpdateGoodOutlined";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useState } from "react";
@@ -24,11 +36,10 @@ import CableOutlinedIcon from "@mui/icons-material/CableOutlined";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-import Drawer from '@mui/material/Drawer';
+import Drawer from "@mui/material/Drawer";
 import { Close } from "@mui/icons-material";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -73,7 +84,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
+
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -103,19 +114,20 @@ const Header2 = () => {
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
 
     setState({ ...state, [anchor]: open });
   };
 
-
   return (
     <Container sx={{ my: 3, display: "flex", justifyContent: "space-between" }}>
       <Stack>
-
-        <SecurityUpdateGoodOutlinedIcon sx={{ marginLeft: 0.7,}}/>
+        <SecurityUpdateGoodOutlinedIcon sx={{ marginLeft: 0.7 }} />
         <Typography variant="body2"> Trello</Typography>
       </Stack>
 
@@ -133,13 +145,12 @@ const Header2 = () => {
         <StyledInputBase
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
-          sx={{ flexGrow: 1}}
+          sx={{ flexGrow: 1 }}
         />
 
         <div>
           <Box>
             <Button
-
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
               aria-haspopup="true"
@@ -150,7 +161,7 @@ const Header2 = () => {
                 borderTopRightRadius: 22,
                 bgcolor: theme.palette.myColor.main,
                 color: theme.palette.text.primary,
-                padding: "9px", 
+                padding: "9px",
               }}
             >
               <WindowIcon />
@@ -175,27 +186,29 @@ const Header2 = () => {
               }}
             >
               <MenuItem onClick={handleClose}>
-            <ListItemIcon>
-              <PhoneAndroidOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Cases </ListItemText>
-          </MenuItem>
- 
-          <MenuItem onClick={handleClose}>
-            <ListItemIcon>
-              <ShieldOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Screen protecter</ListItemText>
-          </MenuItem>
- 
-          <MenuItem onClick={handleClose}>
-            <ListItemIcon>
-              <CableOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>Charger</ListItemText>
-          </MenuItem>
+                <ListItemIcon>
+                  <PhoneAndroidOutlinedIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Cases </ListItemText>
+              </MenuItem>
+
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                  <ShieldOutlinedIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Screen protecter</ListItemText>
+              </MenuItem>
+
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                  <CableOutlinedIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Charger</ListItemText>
+              </MenuItem>
             </Menu>
           </Box>
+
+         
         </div>
       </Search>
 
@@ -210,86 +223,95 @@ const Header2 = () => {
           <PersonIcon />
         </IconButton>
 
+        
+
+
+        {useMediaQuery("(max-width:1200px)") && (
         <IconButton onClick={toggleDrawer("top", true)}>
           <MenuIcon />
         </IconButton>
+      )}
 
         <Drawer
-            anchor={"top"}
-            open={state["top"]}
-            onClose={toggleDrawer("top", false)}
-            sx={{ ".MuiPaper-root.css-1sozasi-MuiPaper-root-MuiDrawer-paper": {
-              height: "100%",}
-            }}
-          >
-
-
-<Box
-          sx={{ width: 444, mx: "auto", mt: 6, position: "relative", pt: 10 }}
+          anchor={"right"}
+          open={state["right"]}
+          onClose={toggleDrawer("right", false)}
+          sx={{
+            ".MuiPaper-root.css-1sozasi-MuiPaper-root-MuiDrawer-paper": {
+              height: "100%",
+            },
+          }}
         >
-          <IconButton
-            sx={{
-              ":hover": { color: "red", rotate: "180deg", transition: "0.3s" },
-              position: "absolute",
-              top: 0,
-              right: 10,
-            }}
-            onClick={toggleDrawer("top", false)}
+          <Box
+            sx={{ width: 444, mx: "auto", mt: 6, position: "relative", pt: 10 }}
           >
-            <Close />
-          </IconButton>
+            <IconButton
+              sx={{
+                ":hover": {
+                  color: "red",
+                  rotate: "180deg",
+                  transition: "0.3s",
+                },
+                position: "absolute",
+                top: 0,
+                right: 10,
+              }}
+              onClick={toggleDrawer("right", false)}
+            >
+              <Close />
+            </IconButton>
 
-          {[
-            { mainLink: "Home", subLinks: ["Link 1", "Link 2", "Link 3"] },
-            { mainLink: "Mega menu", subLinks: ["Link 1", "Link 2", "Link 3"] },
-            {
-              mainLink: "full screen menu",
-              subLinks: ["Link 1", "Link 2", "Link 3"],
-            },
-            { mainLink: "pages", subLinks: ["Link 1", "Link 2", "Link 3"] },
-            {
-              mainLink: "user account",
-              subLinks: ["Link 1", "Link 2", "Link 3"],
-            },
-            {
-              mainLink: "vendor account",
-              subLinks: ["Link 1", "Link 2", "Link 3"],
-            },
-          ].map((item) => {
-            return (
-              <Accordion
-                key={item.mainLink}
-                elevation={0}
-                sx={{ bgcolor: "initial" }}
-              >
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
+            {[
+              { mainLink: "Home", subLinks: ["weq", "Link 2", "Link 3"] },
+              {
+                mainLink: "Mega menu",
+                subLinks: ["Link 1", "Link 2", "Link 3"],
+              },
+              {
+                mainLink: "full screen menu",
+                subLinks: ["Link 1", "Link 2", "Link 3"],
+              },
+              { mainLink: "pages", subLinks: ["Link 1", "Link 2", "Link 3"] },
+              {
+                mainLink: "user account",
+                subLinks: ["Link 1", "Link 2", "Link 3"],
+              },
+
+            ].map((item) => {
+              return (
+                <Accordion
+                  key={item.mainLink}
+                  elevation={0}
+                  sx={{ bgcolor: "initial" }}
                 >
-                  <Typography>{item.mainLink}</Typography>
-                </AccordionSummary>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography>{item.mainLink}</Typography>
+                  </AccordionSummary>
 
-                <List sx={{ py: 0, my: 0 }}>
-                  {item.subLinks.map((link) => {
-                    return (
-                      <ListItem key={link} sx={{ py: 0, my: 0 }}>
-                        <ListItemButton>
-                          <ListItemText primary={link} />
-                        </ListItemButton>
-                      </ListItem>
-                    );
-                  })}
-                </List>
-              </Accordion>
-            );
-          })}
-        </Box>
-
-          </Drawer>
-          
+                  <List sx={{ py: 0, my: 0 }}>
+                    {item.subLinks.map((link) => {
+                      return (
+                        <ListItem key={link} sx={{ py: 0, my: 0 }}>
+                          <ListItemButton>
+                            <ListItemText primary={link} />
+                          </ListItemButton>
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                </Accordion>
+              );
+            })}
+          </Box>
+        </Drawer>
       </Stack>
+      
     </Container>
+    
   );
 };
 export default Header2;
