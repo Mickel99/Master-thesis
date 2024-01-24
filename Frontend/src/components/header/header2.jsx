@@ -232,34 +232,30 @@ const Header2 = () => {
         </IconButton>
       )}
 
-        <Drawer
-          anchor={"right"}
-          open={state["right"]}
-          onClose={toggleDrawer("right", false)}
-          sx={{
-            ".MuiPaper-root.css-1sozasi-MuiPaper-root-MuiDrawer-paper": {
-              height: "100%",
-            },
-          }}
+<Drawer
+        anchor={"top"}
+        open={state["top"]}
+        onClose={toggleDrawer("top", false)}
+        sx={{
+          ".MuiPaper-root.css-1sozasi-MuiPaper-root-MuiDrawer-paper": {
+            height: "100%",
+          },
+        }}
+      >
+        <Box
+          sx={{ width: 444, mx: "auto", mt: 6, position: "relative", pt: 10 }}
         >
-          <Box
-            sx={{ width: 444, mx: "auto", mt: 6, position: "relative", pt: 10 }}
+          <IconButton
+            sx={{
+              ":hover": { color: "red", rotate: "180deg", transition: "0.3s" },
+              position: "absolute",
+              top: 0,
+              right: 10,
+            }}
+            onClick={toggleDrawer("top", false)}
           >
-            <IconButton
-              sx={{
-                ":hover": {
-                  color: "red",
-                  rotate: "180deg",
-                  transition: "0.3s",
-                },
-                position: "absolute",
-                top: 0,
-                right: 10,
-              }}
-              onClick={toggleDrawer("right", false)}
-            >
-              <Close />
-            </IconButton>
+            <Close />
+          </IconButton>
 
             {[
               { mainLink: "Home", subLinks: ["weq", "Link 2", "Link 3"] },
