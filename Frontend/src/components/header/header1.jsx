@@ -87,12 +87,16 @@ const Header1 = () => {
           )}
         </div>
 
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
         <TwitterIcon
           sx={{
             fontSize: "16px",
             color: "#fff",
           }}
         />
+      </a>
+      
+      <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
         <FacebookIcon
           sx={{
             fontSize: "16px",
@@ -100,12 +104,16 @@ const Header1 = () => {
             color: "#fff",
           }}
         />
+      </a>
+
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
         <InstagramIcon
           sx={{
             fontSize: "16px",
             color: "#fff",
           }}
         />
+      </a>
       </Stack>
       </Container>
     </Box>
