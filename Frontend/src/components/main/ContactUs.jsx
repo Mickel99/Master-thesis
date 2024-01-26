@@ -1,7 +1,18 @@
 import { Container, Typography, TextField, Button, Stack } from "@mui/material";
+import Header1 from "../header/header1";
+import Header2 from "../header/header2";
+import Header3 from "../header/header3";
+import Footer from "../footer/footer";
 
 const ContactUs = () => {
   return (
+
+    <>
+    <Header1 />
+    <Header2 />
+    <Header3 />
+
+
     <Container sx={{ my: 3 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>
         Contact Us
@@ -39,6 +50,11 @@ const ContactUs = () => {
         </Stack>
       </form>
     </Container>
+
+    <Footer />
+</>
+
+
   );
 };
 
