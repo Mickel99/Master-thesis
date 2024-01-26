@@ -15,6 +15,9 @@ export const getDesignTokens = (mode) => ({
             main: "#F6F9FC"
           },
           
+          menucolor: {
+            main: "black"
+          },
           
           text: {
             primary: "#2B3445",
@@ -32,6 +35,11 @@ export const getDesignTokens = (mode) => ({
           myColor: {
             main: "#252b32"
           },
+          
+          menucolor: {
+            main: "white"
+          },
+
           neutral: {
             main: "#64748B",
           },

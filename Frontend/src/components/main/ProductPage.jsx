@@ -1,29 +1,18 @@
-import React, { useState } from "react";
-
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  CircularProgress,
-  Container,
-  Dialog,
-  IconButton,
-  Stack,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from "@mui/material";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Close } from "@mui/icons-material";
-import ProductDetails from "./ProductDetails";
+// ProductPage.jsx
+import { Box, Button, Card, CardActions, CardContent, CardMedia, CircularProgress, Container, Dialog, IconButton, Stack, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import { useGetproductByNameQuery } from "../../Redux/product";
+import ProductDetails from "./ProductDetails";
+import { Close } from "@mui/icons-material";
+import React, { useState } from "react";
 import { useTheme } from "@emotion/react";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import Header1 from "../header/header1";
+import Header2 from "../header/header2";
+import Header3 from "../header/header3";
+import Footer from "../footer/footer";
 
 
-const Main = () => {
+const ProductPage = () => {
   const [alignment, setAlignment] = React.useState("left");
   const [open, setOpen] = React.useState(false);
 
@@ -84,6 +73,13 @@ const Main = () => {
 
   if (data) {
     return (
+
+      <>
+<Header1 />
+<Header2 />
+<Header3 />
+
+
       <Container>
         <Stack alignItems={"center"} marginTop={15}>
         <Box>
@@ -128,16 +124,16 @@ const Main = () => {
             }}
           >
             <ToggleButton value={allProductsAPI} aria-label="left aligned">
-            All Products
+              All Books
             </ToggleButton>
             <ToggleButton value={casesCategoryAPI} aria-label="centered">
-              Cases
+              Books
             </ToggleButton>
             <ToggleButton value={chargerCategoryAPI} aria-label="right aligned">
-              Charger
+              Audio Books
             </ToggleButton>
             <ToggleButton value={ScreenprotectorCategoryAPI} aria-label="right aligned">
-            Screen protector
+              Screen Books
             </ToggleButton>
           </ToggleButtonGroup>
 
@@ -225,8 +221,13 @@ const Main = () => {
           <ProductDetails />
         </Dialog>
       </Container>
+
+<Footer />
+</>
+
+
     );
   }
 };
 
-export default Main;
+export default ProductPage;

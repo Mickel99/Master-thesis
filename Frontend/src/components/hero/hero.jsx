@@ -1,4 +1,6 @@
 import { Box, Button, Container, Typography } from "@mui/material";
+import { Link } from 'react-router-dom';  // Lägg till denna importering
+
 
 const Hero = () => {
   return (
@@ -23,22 +25,24 @@ const Hero = () => {
             textAlign: 'center',
           }}
         >
-          <Button
-            className="all-product-button"
-            variant="contained"
-            color="primary"
-            sx={{
-              backgroundColor: '#999',
-              '&:hover': {
-                backgroundColor: 'beige',
-                color: 'black',
-              },
-            }}
-          >
-            <Typography variant="button" sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
-              Alla produkter
-            </Typography>
-          </Button>
+    <Link to="/products"> 
+            <Button
+              className="all-product-button"
+              variant="contained"
+              color="primary"
+              sx={{
+                backgroundColor: '#999',
+                '&:hover': {
+                  backgroundColor: 'beige',
+                  color: 'black',
+                },
+              }}
+            >
+              <Typography variant="button" sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
+              All Products
+              </Typography>
+            </Button>
+          </Link>
         </div>
       </Box>
     </Container>
