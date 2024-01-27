@@ -136,16 +136,16 @@ const ProductPage = () => {
             }}
           >
             <ToggleButton value={allProductsAPI} aria-label="left aligned">
-              All Books
+            All Products
             </ToggleButton>
             <ToggleButton value={casesCategoryAPI} aria-label="centered">
-              Books
+              Cases
             </ToggleButton>
             <ToggleButton value={chargerCategoryAPI} aria-label="right aligned">
-              Audio Books
+              Charger
             </ToggleButton>
             <ToggleButton value={ScreenprotectorCategoryAPI} aria-label="right aligned">
-              Screen Books
+            Screen protector
             </ToggleButton>
           </ToggleButtonGroup>
 
