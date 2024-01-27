@@ -28,7 +28,12 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 const Header3 = () => {
   return (
     <Container>
-      <Stack direction={"row"} alignItems={"center"} spacing={2} justifyContent={"flex-end"}>
+      <Stack
+        direction={{ xs: "column", sm: "row" }}  
+        alignItems={{ xs: "center", sm: "center" }}
+        spacing={2}
+        justifyContent={{ xs: "center", sm: "flex-end" }}
+      >
         <Link to="/">
           <StyledIconButton>
             <HomeIcon />
@@ -49,7 +54,6 @@ const Header3 = () => {
             <Typography variant="body2">Contact us</Typography>
           </StyledIconButton>
         </Link>
-
       </Stack>
     </Container>
   );

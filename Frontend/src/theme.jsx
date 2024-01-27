@@ -50,6 +50,10 @@ export const getDesignTokens = (mode) => ({
           text: {
             primary: "#fff",
           },
+          secondary: {
+            main: '#d7ccc8',
+          },
+          
         }),
   },
 });

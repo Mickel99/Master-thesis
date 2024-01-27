@@ -1,11 +1,19 @@
-import { Link } from 'react-router-dom';
-import { IconButton, Container, Stack, Typography, useMediaQuery } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import { styled } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  IconButton,
+  Container,
+  Stack,
+  Typography,
+  useMediaQuery,
+  InputBase,
+  Button,
+} from "@mui/material";
+import { styled } from "@mui/system";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
 import SecurityUpdateGoodOutlinedIcon from "@mui/icons-material/SecurityUpdateGoodOutlined";
+import SearchIcon from "@mui/icons-material/Search";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -17,94 +25,147 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 const LogoLink = styled(Link)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  textDecoration: 'none',
+  display: "flex",
+  alignItems: "center",
+  textDecoration: "none",
   color: theme.palette.text.primary,
-  transition: 'color 0.3s',
+  transition: "color 0.3s",
   "&:hover": {
     color: theme.palette.primary.main,
   },
 }));
 
-const Search = styled("div")(({ theme }) => ({
-  flexGrow: 0.4,
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  border: "1px solid #777",
-  "&:hover": {
-    border: "1px solid #333",
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
+const CenteredSearchContainer = styled("div")({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: "#777",
+  flex: 1,
+});
+
+const SearchContainer = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  borderRadius: theme.shape.borderRadius,
+  marginLeft: theme.spacing(1),
+  marginRight: theme.spacing(1),
+  padding: theme.spacing(0.5),
+  backgroundColor: theme.palette.mode === "light" ? theme.palette.background.paper : theme.palette.secondary.dark,
+  color: theme.palette.mode === "light" ? theme.palette.text.primary : theme.palette.common.white,
+  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+  transition: "box-shadow 0.3s, background-color 0.3s",
+  "&:hover": {
+    backgroundColor: theme.palette.mode === "light" ? theme.palette.background.default : theme.palette.background.paper,
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+  },
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
+const SearchInput = styled(InputBase)(({ theme }) => ({
+  flex: 1,
+  color: theme.palette.text.primary,
+  fontSize: "1rem",
+  padding: theme.spacing(1),
+  backgroundColor: theme.palette.mode === "light" ? theme.palette.background.paper : theme.palette.secondary.dark,
+  "&::placeholder": {
+    color: theme.palette.text.secondary,
+  },
+}));
+
+const SearchButton = styled(Button)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  color: theme.palette.primary.contrastText,
+  padding: theme.spacing(1),
+  borderRadius: theme.shape.borderRadius,
+  transition: "background-color 0.3s",
+  "&:hover": {
+    backgroundColor: theme.palette.secondary.dark,
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+  },
+}));
+
+const CartIconButton = styled(IconButton)(({ theme }) => ({
+  "&:hover": {
+    color: theme.palette.secondary.dark,
   },
 }));
 
 const Header2 = () => {
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = async () => {
+    try {
+
+      const result = await fetch(
+        `http://localhost:1337/api/products?populate=*&filters[productName][$regex]=${searchTerm}`
+      );
+
+      if (!result.ok) {
+        console.error("Bad Request:", result.statusText);
+        return;
+      }
+
+      const data = await result.json();
+
+      // Kontrollera om data är null eller undefined innan du använder filter
+      if (data && data.data) {
+        // Implementera logik för att filtrera resultaten baserat på söktermen
+        const filteredProducts = data.data.filter((product) =>
+          product.attributes.productName
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        );
+
+        console.log("Filtered Products:", filteredProducts);
+
+        // Kolla om filtrerade produkter finns
+        if (filteredProducts.length > 0) {
+
+          navigate(`/products?search=${searchTerm}`);
+        } else {
+          console.log("Inga resultat hittades.");
+        }
+      } else {
+        console.error("No data received from the API.");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <Container sx={{ my: 3, display: "flex", justifyContent: "space-between" }}>
       <Stack>
-        <LogoLink to="/" sx={{ marginRight: isSmallScreen ? theme => theme.spacing(2) : 0 }}>
-          <SecurityUpdateGoodOutlinedIcon sx={{ marginLeft: 0.7 }} />
-          <Typography variant="body2"> Trello</Typography>
+        <LogoLink to="/" sx={{ marginRight: isSmallScreen ? 2 : 0 }}>
+          <SecurityUpdateGoodOutlinedIcon sx={{ marginLeft: 0.7, fontSize: "1.5rem" }} />
+          <Typography variant="body2" sx={{ fontSize: "1.2rem" }}> Trello</Typography>
         </LogoLink>
       </Stack>
-
-      <Search
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          borderRadius: "22px",
-          justifyContent: "space-between",
-        }}
-      >
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-          sx={{ flexGrow: 1 }}
-        />
-      </Search>
-
+      <CenteredSearchContainer>
+        <SearchContainer>
+          <SearchInput
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyPress={handleKeyPress}
+          />
+          <SearchButton variant="contained" onClick={handleSearch}>
+            <SearchIcon />
+          </SearchButton>
+        </SearchContainer>
+      </CenteredSearchContainer>
       <Stack direction={"row"} alignItems={"center"}>
-        <IconButton aria-label="cart">
+        <CartIconButton aria-label="cart">
           <StyledBadge badgeContent={4} color="primary">
             <ShoppingCartIcon />
           </StyledBadge>
-        </IconButton>
-
-
+        </CartIconButton>
       </Stack>
     </Container>
   );

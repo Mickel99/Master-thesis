@@ -1,4 +1,4 @@
-// ProductPage.jsx
+
 import { Box, Button, Card, CardActions, CardContent, CardMedia, CircularProgress, Container, Dialog, IconButton, Stack, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import { useGetproductByNameQuery } from "../../Redux/product";
 import ProductDetails from "./ProductDetails";
@@ -10,11 +10,33 @@ import Header1 from "../header/header1";
 import Header2 from "../header/header2";
 import Header3 from "../header/header3";
 import Footer from "../footer/footer";
-
+import { useSearchParams } from "react-router-dom";
 
 const ProductPage = () => {
   const [alignment, setAlignment] = React.useState("left");
   const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+
+  const allProductsAPI = "products?populate=*";
+  const casesCategoryAPI = "products?populate=*&filters[Category][$eq]=Cases";
+  const chargerCategoryAPI = "products?populate=*&filters[Category][$eq]=Charger";
+  const ScreenprotectorCategoryAPI = "products?populate=*&filters[Category][$eq]=Screen%20protector";
+
+  const [myDate, setmyDate] = useState(allProductsAPI);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [searchParams] = useSearchParams();
+  const searchTermFromUrl = searchParams.get("search");
+
+  React.useEffect(() => {
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [searchTermFromUrl]);
+
+  const { data, error, isLoading } = useGetproductByNameQuery(
+    myDate
+  );
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -29,17 +51,12 @@ const ProductPage = () => {
     setmyDate(newValue);
   };
 
-  const theme = useTheme();
-
-  const allProductsAPI = "products?populate=*";
-  const casesCategoryAPI = "products?populate=*&filters[Category][$eq]=Cases";
-  const chargerCategoryAPI = "products?populate=*&filters[Category][$eq]=Charger";
-  const ScreenprotectorCategoryAPI = "products?populate=*&filters[Category][$eq]=Screen%20protector";
-
-
-  const [myDate, setmyDate] = useState(allProductsAPI);
-  const { data, error, isLoading } = useGetproductByNameQuery(myDate);
-  // const [clickedProduct, setclickedProduct] = useState({});
+  // Filtrera produkter baserat på sökterm
+  const filteredProducts = searchTerm
+    ? data?.data.filter((product) =>
+        product.attributes.productName.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : data?.data;
 
   if (isLoading) {
     return (
@@ -69,20 +86,15 @@ const ProductPage = () => {
     );
   }
 
-
-
-  if (data) {
-    return (
-
-      <>
-<Header1 />
-<Header2 />
-<Header3 />
-
+  return (
+    <>
+      <Header1 />
+      <Header2 />
+      <Header3 />
 
       <Container>
         <Stack alignItems={"center"} marginTop={15}>
-        <Box>
+          <Box>
             <Typography sx={{ textAlign: "center", fontSize: "24px", fontWeight: "bold", mb: 2, color: theme.palette.primary.main }}>
               🌟 Hot Sales Alert! 🌟
             </Typography>
@@ -144,7 +156,7 @@ const ProductPage = () => {
           flexWrap={"wrap"}
           justifyContent={"space-between"}
         >
-          {data.data.map((item) => {
+          {filteredProducts?.map((item) => {
             return (
               <Card
                 key={item}
@@ -222,12 +234,9 @@ const ProductPage = () => {
         </Dialog>
       </Container>
 
-<Footer />
-</>
-
-
-    );
-  }
+      <Footer />
+    </>
+  );
 };
 
 export default ProductPage;

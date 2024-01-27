@@ -1,5 +1,5 @@
 
-import { Box, Button, Typography, Link } from "@mui/material";
+import { Box, Typography, Link } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -59,28 +59,7 @@ const Footer = () => {
           </Link>
         </Typography>
       </Box>
-      <Typography
-        textAlign="center"
-        variant="body2"
-        sx={{ mt: 2 }}
-      >
-        Crafted by{" "}
-        <Button
-          component={Link}
-          href="#"
-          target="_blank"
-          rel="noopener"
-          sx={{
-            fontSize: "16px",
-            textTransform: "capitalize",
-            color: "#11",
-          }}
-          variant="text"
-        >
-          Mickel Mounirji
-        </Button>
-      </Typography>
-    </Box>
+</Box>
   );
 };
 

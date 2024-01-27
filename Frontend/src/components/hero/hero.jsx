@@ -1,6 +1,5 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import { Link } from 'react-router-dom';  // Lägg till denna importering
-
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -13,10 +12,14 @@ const Hero = () => {
           alignItems: 'center',
           borderRadius: '30px',
           overflow: 'hidden',
-          height: '447px',
+          height: 'auto', 
         }}
       >
-        <img src="https://images.macrumors.com/t/SuHt0iQuSjaO-ExOZzJieONGf_I=/2500x/article-new/2023/09/iPhone-15-Pro-Lineup-Feature.jpg" alt="Slide 1" style={{ maxWidth: '100%', borderRadius: '10px' }} />
+        <img
+          src="https://images.macrumors.com/t/SuHt0iQuSjaO-ExOZzJieONGf_I=/2500x/article-new/2023/09/iPhone-15-Pro-Lineup-Feature.jpg"
+          alt="Slide 1"
+          style={{ width: '100%', borderRadius: '10px' }} 
+        />
         <div
           style={{
             position: 'absolute',
@@ -25,7 +28,7 @@ const Hero = () => {
             textAlign: 'center',
           }}
         >
-    <Link to="/products"> 
+          <Link to="/products">
             <Button
               className="all-product-button"
               variant="contained"
@@ -39,7 +42,7 @@ const Hero = () => {
               }}
             >
               <Typography variant="button" sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
-              All Products
+                All Products
               </Typography>
             </Button>
           </Link>
