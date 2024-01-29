@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  IconButton,
   Container,
   Stack,
   Typography,
@@ -10,19 +9,11 @@ import {
   Button,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import Badge from "@mui/material/Badge";
 import SecurityUpdateGoodOutlinedIcon from "@mui/icons-material/SecurityUpdateGoodOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import Cart from "../myCart/Cart";
 
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  "& .MuiBadge-badge": {
-    right: -3,
-    top: 13,
-    border: `2px solid ${theme.palette.background.paper}`,
-    padding: "0 4px",
-  },
-}));
+
 
 const LogoLink = styled(Link)(({ theme }) => ({
   display: "flex",
@@ -77,11 +68,6 @@ const SearchButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const CartIconButton = styled(IconButton)(({ theme }) => ({
-  "&:hover": {
-    color: theme.palette.secondary.dark,
-  },
-}));
 
 const Header2 = () => {
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -155,13 +141,7 @@ const Header2 = () => {
           </SearchButton>
         </SearchContainer>
       </CenteredSearchContainer>
-      <Stack direction={"row"} alignItems={"center"}>
-        <CartIconButton aria-label="cart">
-          <StyledBadge badgeContent={4} color="primary">
-            <ShoppingCartIcon />
-          </StyledBadge>
-        </CartIconButton>
-      </Stack>
+<Cart />
     </Container>
   );
 };

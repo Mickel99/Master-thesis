@@ -21,15 +21,26 @@ import { Close } from "@mui/icons-material";
 import ProductDetails from "./ProductDetails";
 import { useGetproductByNameQuery } from "../../Redux/product";
 import { useTheme } from "@emotion/react";
-
+import { cartActions } from "../../Redux/cartSlice";
+import { useDispatch } from 'react-redux';
 
 const Main = () => {
   const [alignment, setAlignment] = React.useState("left");
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const dispatch = useDispatch(); // Lägg till detta för att initiera dispatch
+
+  const handleAddToCart = (item) => {
+    dispatch(cartActions.addItemToCart(item));
+    // Skicka API-anrop här, t.ex. addToCartAPI(item);
   };
+
+
+
+
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     setOpen(false);
@@ -189,15 +200,15 @@ const Main = () => {
                 </CardContent>
 
                 <CardActions>
-                  <Button
-                    onClick={handleClickOpen}
-                    sx={{ textTransform: "capitalize" }}
-                    size="large"
-                  >
-                    Add to cart <ShoppingCartOutlinedIcon sx={{ mr: 1 }} />{" "}
-                  </Button>
-                  <Button size="small">Learn More</Button>
-                </CardActions>
+                <Button
+                  onClick={() => handleAddToCart(item)}
+                  sx={{ textTransform: "capitalize" }}
+                  size="large"
+                >
+                  Add to cart <ShoppingCartOutlinedIcon sx={{ mr: 1 }} />{" "}
+                </Button>
+
+              </CardActions>
               </Card>
             );
           })}

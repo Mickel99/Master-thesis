@@ -11,11 +11,24 @@ import Header2 from "../header/header2";
 import Header3 from "../header/header3";
 import Footer from "../footer/footer";
 import { useSearchParams } from "react-router-dom";
+import { cartActions } from "../../Redux/cartSlice";
+import { useDispatch } from 'react-redux';
+
+
 
 const ProductPage = () => {
   const [alignment, setAlignment] = React.useState("left");
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
+
+  const dispatch = useDispatch(); // Lägg till detta för att initiera dispatch
+
+  const handleAddToCart = (item) => {
+    dispatch(cartActions.addItemToCart(item));
+    // Skicka API-anrop här, t.ex. addToCartAPI(item);
+  };
+
+
 
   const allProductsAPI = "products?populate=*";
   const casesCategoryAPI = "products?populate=*&filters[Category][$eq]=Cases";
@@ -38,9 +51,9 @@ const ProductPage = () => {
     myDate
   );
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
 
   const handleClose = () => {
     setOpen(false);
@@ -89,19 +102,13 @@ const ProductPage = () => {
   return (
     <>
       <Header1 />
+
       <Header2 />
+      
       <Header3 />
 
       <Container>
-        <Stack alignItems={"center"} marginTop={15}>
-          <Box>
-            <Typography sx={{ textAlign: "center", fontSize: "24px", fontWeight: "bold", mb: 2, color: theme.palette.primary.main }}>
-              🌟 Hot Sales Alert! 🌟
-            </Typography>
-            <Typography sx={{ textAlign: "center", fontSize: "16px", mb: 4, color: theme.palette.text.secondary }}>
-              Explore our latest arrivals in an exclusive brand selection.
-            </Typography>
-          </Box>
+        <Stack alignItems={"center"} marginTop={5}>
 
           <ToggleButtonGroup
             value={alignment}
@@ -197,15 +204,15 @@ const ProductPage = () => {
                 </CardContent>
 
                 <CardActions>
-                  <Button
-                    onClick={handleClickOpen}
-                    sx={{ textTransform: "capitalize" }}
-                    size="large"
-                  >
-                    Add to cart <ShoppingCartOutlinedIcon sx={{ mr: 1 }} />{" "}
-                  </Button>
-                  <Button size="small">Learn More</Button>
-                </CardActions>
+                <Button
+                  onClick={() => handleAddToCart(item)}
+                  sx={{ textTransform: "capitalize" }}
+                  size="large"
+                >
+                  Add to cart <ShoppingCartOutlinedIcon sx={{ mr: 1 }} />{" "}
+                </Button>
+
+              </CardActions>
               </Card>
             );
           })}

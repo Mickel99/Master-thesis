@@ -11,6 +11,7 @@
 import Header3 from './components/header/header3';
 import ContactUs from './components/main/ContactUs';
 
+
   function App() {
     const [theme, colorMode] = useMode();
 
@@ -22,6 +23,7 @@ import ContactUs from './components/main/ContactUs';
             <Routes>
               <Route path="/" element={<>
                 <Header1 />
+
                 <Header2 />
                 <Header3 />
                 <Hero />
