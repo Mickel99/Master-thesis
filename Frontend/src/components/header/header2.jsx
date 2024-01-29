@@ -51,12 +51,7 @@ const SearchContainer = styled("div")(({ theme }) => ({
   padding: theme.spacing(0.5),
   backgroundColor: theme.palette.mode === "light" ? theme.palette.background.paper : theme.palette.secondary.dark,
   color: theme.palette.mode === "light" ? theme.palette.text.primary : theme.palette.common.white,
-  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-  transition: "box-shadow 0.3s, background-color 0.3s",
-  "&:hover": {
-    backgroundColor: theme.palette.mode === "light" ? theme.palette.background.default : theme.palette.background.paper,
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-  },
+
 }));
 
 const SearchInput = styled(InputBase)(({ theme }) => ({
