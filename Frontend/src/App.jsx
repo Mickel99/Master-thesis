@@ -10,6 +10,8 @@
   import ProductPage from './components/main/ProductPage';
 import Header3 from './components/header/header3';
 import ContactUs from './components/main/ContactUs';
+import Checkout from './components/myCart/Checkout';
+
 
 
   function App() {
@@ -33,6 +35,7 @@ import ContactUs from './components/main/ContactUs';
               </>} />
               <Route path="/contactus" element= {<ContactUs />} />
               <Route path="/products" element={<ProductPage />} />
+              <Route path="/checkout" element={<Checkout />} />
             </Routes>
           </Router>
         </ThemeProvider>

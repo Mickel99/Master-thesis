@@ -1,10 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { addToCartAPI, removeFromCartAPI } from "./Cart/cartApiCall";
 
+// Funktion för att hämta cartItems från localStorage
+const getCartItemsFromStorage = () => {
+  return JSON.parse(localStorage.getItem("cartItems")) || [];
+};
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    cartItems: [],
+    cartItems: getCartItemsFromStorage(),
   },
   reducers: {
     addItemToCart(state, action) {
@@ -26,16 +31,20 @@ const cartSlice = createSlice({
         };
         state.cartItems = [...state.cartItems, newItemWithDetails];
       }
+
+      // Spara i localStorage
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     removeItemFromCart(state, action) {
       state.cartItems = state.cartItems.filter(
         (item) => item.id !== action.payload
       );
+
+      // Spara i localStorage
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
   },
 });
-
-const cartActions = cartSlice.actions;
 
 export const addToCartAsync = createAsyncThunk(
   'cart/addToCartAsync',
@@ -61,6 +70,7 @@ export const removeFromCartAsync = createAsyncThunk(
   }
 );
 
+const cartActions = cartSlice.actions;
 const cartReducer = cartSlice.reducer;
 
-export { cartActions, cartReducer, };
+export { cartActions, cartReducer };

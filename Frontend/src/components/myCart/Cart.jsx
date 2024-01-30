@@ -3,11 +3,14 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartActions } from '../../Redux/cartSlice';
 import { FaShoppingCart } from 'react-icons/fa'; // Import cart icon
+import { useNavigate } from 'react-router-dom'; // Använd useNavigate istället för useHistory
+
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
   const [isCartOpen, setCartOpen] = useState(false);
+  const navigate = useNavigate(); // Använd useNavigate istället för useHistory
 
   const handleRemoveItem = (itemId) => {
     dispatch(cartActions.removeItemFromCart(itemId));
@@ -52,11 +55,11 @@ const Cart = () => {
                 <strong style={{ fontSize: '1.3rem', color: '#333' }}>Total Price: ${calculateTotalPrice()}</strong>
               </div>
               <button
-                style={{ width: '100%', padding: '15px', marginTop: '15px', backgroundColor: '#4CAF50', color: 'white', border: 'none', borderRadius: '5px', fontSize: '1.2rem', cursor: 'pointer' }}
-                onClick={() => console.log('Proceed to Checkout')}
-              >
-                Proceed to Checkout
-              </button>
+            style={{ width: '100%', padding: '15px', marginTop: '15px', backgroundColor: '#4CAF50', color: 'white', border: 'none', borderRadius: '5px', fontSize: '1.2rem', cursor: 'pointer' }}
+            onClick={() => navigate('/checkout')} // Använd navigate istället för push
+          >
+            Proceed to Checkout
+          </button>
             </div>
           )}
         </div>
