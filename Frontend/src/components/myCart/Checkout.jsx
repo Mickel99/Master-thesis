@@ -20,13 +20,10 @@ const Checkout = () => {
   };
 
   const handlePlaceOrder = () => {
-    // Här kan du implementera logik för att hantera beställningen
-    // Exempelvis, skicka data till en backend eller visa en bekräftelsemeddelande
+
     console.log("Order placed:", { customerInfo, cartItems });
 
-    // Visa tack-sidan eller navigera till en annan sida
-    // Du kan använda en state-variabel för att visa olika delar av komponenten
-    // eller använda en router för att navigera till en annan sida
+
     setOrderPlaced(true);
   };
 
@@ -47,7 +44,6 @@ const Checkout = () => {
     );
   }
 
-  // Visa betalningsinformation baserat på valt betalningssätt
   let paymentInfo;
   if (customerInfo.paymentMethod === "card") {
     paymentInfo = (
@@ -114,7 +110,6 @@ const Checkout = () => {
     paymentInfo = (
       <div>
         <p style={{ fontSize: "16px", margin: "0" }}>Pay with Klarna</p>
-        {/* Lägg till Klarna-specifik information här */}
         <img
           src=".\src\Image\klarna-og.png"
           alt="Klarna Logo"
@@ -132,7 +127,7 @@ const Checkout = () => {
         padding: "20px",
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
         borderRadius: "8px",
-        background: "#f8f8f8", // Updated background color
+        background: "#f8f8f8",
       }}
     >
       <h2 style={{ textAlign: "center", marginBottom: "20px", color: "#333" }}>
@@ -270,7 +265,6 @@ const Checkout = () => {
           </div>
         </label>
         {paymentInfo}
-        {/* Lägg till fler formulärfält efter behov */}
         <button
           type="button"
           onClick={handlePlaceOrder}
