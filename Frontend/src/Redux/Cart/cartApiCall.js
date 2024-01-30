@@ -1,6 +1,4 @@
-// cartApiCall.js
 export function addToCartAPI(newItem) {
-    // Simulera ett API-anrop, ersätt med riktigt anrop här
     return new Promise((resolve) => {
       setTimeout(() => {
         console.log("Simulated API call: Added to cart", newItem);
@@ -10,7 +8,6 @@ export function addToCartAPI(newItem) {
   }
   
   export function removeFromCartAPI(id) {
-    // Simulera ett API-anrop, ersätt med riktigt anrop här
     return new Promise((resolve) => {
       setTimeout(() => {
         console.log("Simulated API call: Removed from cart", id);

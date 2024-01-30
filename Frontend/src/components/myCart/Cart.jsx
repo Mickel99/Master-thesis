@@ -1,16 +1,16 @@
-// Cart.jsx
+
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartActions } from '../../Redux/cartSlice';
-import { FaShoppingCart } from 'react-icons/fa'; // Import cart icon
-import { useNavigate } from 'react-router-dom'; // Använd useNavigate istället för useHistory
+import { FaShoppingCart } from 'react-icons/fa'; 
+import { useNavigate } from 'react-router-dom'; 
 
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
   const [isCartOpen, setCartOpen] = useState(false);
-  const navigate = useNavigate(); // Använd useNavigate istället för useHistory
+  const navigate = useNavigate(); 
 
   const handleRemoveItem = (itemId) => {
     dispatch(cartActions.removeItemFromCart(itemId));
@@ -56,7 +56,7 @@ const Cart = () => {
               </div>
               <button
             style={{ width: '100%', padding: '15px', marginTop: '15px', backgroundColor: '#4CAF50', color: 'white', border: 'none', borderRadius: '5px', fontSize: '1.2rem', cursor: 'pointer' }}
-            onClick={() => navigate('/checkout')} // Använd navigate istället för push
+            onClick={() => navigate('/checkout')} 
           >
             Proceed to Checkout
           </button>

@@ -28,19 +28,13 @@ const Main = () => {
   const [alignment, setAlignment] = React.useState("left");
   const [open, setOpen] = React.useState(false);
 
-  const dispatch = useDispatch(); // Lägg till detta för att initiera dispatch
+  const dispatch = useDispatch(); 
 
   const handleAddToCart = (item) => {
     dispatch(cartActions.addItemToCart(item));
-    // Skicka API-anrop här, t.ex. addToCartAPI(item);
   };
 
 
-
-
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
 
   const handleClose = () => {
     setOpen(false);
