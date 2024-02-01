@@ -18,7 +18,6 @@ import {
 } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Close } from "@mui/icons-material";
-import ProductDetails from "./ProductDetails";
 import { useGetproductByNameQuery } from "../../Redux/product";
 import { useTheme } from "@emotion/react";
 import { cartActions } from "../../Redux/cartSlice";
@@ -227,7 +226,6 @@ const Main = () => {
             <Close />
           </IconButton>
 
-          <ProductDetails />
         </Dialog>
       </Container>
     );

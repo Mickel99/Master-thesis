@@ -1,7 +1,6 @@
 
 import { Box, Button, Card, CardActions, CardContent, CardMedia, CircularProgress, Container, Dialog, IconButton, Stack, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import { useGetproductByNameQuery } from "../../Redux/product";
-import ProductDetails from "./ProductDetails";
 import { Close } from "@mui/icons-material";
 import React, { useState } from "react";
 import { useTheme } from "@emotion/react";
@@ -237,7 +236,6 @@ const ProductPage = () => {
             <Close />
           </IconButton>
 
-          <ProductDetails />
         </Dialog>
       </Container>
 

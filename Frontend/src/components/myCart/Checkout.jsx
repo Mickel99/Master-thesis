@@ -1,7 +1,9 @@
 import  { useState } from "react";
 import { useSelector } from "react-redux";
+import { useTheme } from "@mui/material/styles"; // Importera useTheme från MUI
 
 const Checkout = () => {
+  const theme = useTheme(); // Använd useTheme-hooken för att hämta aktuellt tema
   const cartItems = useSelector((state) => state.cart.cartItems);
   const [customerInfo, setCustomerInfo] = useState({
     name: "",
@@ -48,7 +50,7 @@ const Checkout = () => {
   if (customerInfo.paymentMethod === "card") {
     paymentInfo = (
       <div>
-        <label style={{ display: "block", margin: "10px 0" }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black"  }}>
           Card Number:
           <input
             type="text"
@@ -63,7 +65,7 @@ const Checkout = () => {
             }}
           />
         </label>
-        <label style={{ display: "block", margin: "10px 0" }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black"  }}>
           Expiry Date:
           <input
             type="text"
@@ -78,7 +80,7 @@ const Checkout = () => {
             }}
           />
         </label>
-        <label style={{ display: "block", margin: "10px 0" }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black"  }}>
           CVV:
           <input
             type="text"
@@ -98,7 +100,7 @@ const Checkout = () => {
   } else if (customerInfo.paymentMethod === "swish") {
     paymentInfo = (
       <div>
-        <p style={{ fontSize: "16px", margin: "0" }}>Swish to: 123 123 123</p>
+        <p style={{ fontSize: "16px", margin: "0", color: "black"  }}>Swish to: 123 123 123</p>
         <img
           src="./src/Image/test.png"
           alt="Swish QR Code"
@@ -109,7 +111,7 @@ const Checkout = () => {
   } else if (customerInfo.paymentMethod === "klarna") {
     paymentInfo = (
       <div>
-        <p style={{ fontSize: "16px", margin: "0" }}>Pay with Klarna</p>
+        <p style={{ fontSize: "16px", margin: "0", color: "black"  }}>Pay with Klarna</p>
         <img
           src=".\src\Image\klarna-og.png"
           alt="Klarna Logo"
@@ -174,7 +176,7 @@ const Checkout = () => {
         </strong>
       </div>
       <form style={{ marginTop: "20px" }}>
-        <label style={{ display: "block", margin: "10px 0" }}>
+        <label  style={{ display: "block", margin: "10px 0", color: "black" }}>
           Name:
           <input
             type="text"
@@ -190,7 +192,7 @@ const Checkout = () => {
             }}
           />
         </label>
-        <label style={{ display: "block", margin: "10px 0" }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black"  }}>
           Email:
           <input
             type="email"
@@ -206,7 +208,7 @@ const Checkout = () => {
             }}
           />
         </label>
-        <label style={{ display: "block", margin: "10px 0" }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black"  }}>
           Address:
           <input
             type="text"
@@ -219,10 +221,11 @@ const Checkout = () => {
               fontSize: "14px",
               borderRadius: "4px",
               border: "1px solid #ccc",
+              
             }}
           />
         </label>
-        <label style={{ display: "block", margin: "10px 0" }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black"  }}>
           Payment Method:
           <div>
             <label htmlFor="card" className="payment-option">
