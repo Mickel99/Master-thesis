@@ -1,9 +1,7 @@
 import  { useState } from "react";
 import { useSelector } from "react-redux";
-import { useTheme } from "@mui/material/styles"; // Importera useTheme från MUI
 
 const Checkout = () => {
-  const theme = useTheme(); // Använd useTheme-hooken för att hämta aktuellt tema
   const cartItems = useSelector((state) => state.cart.cartItems);
   const [customerInfo, setCustomerInfo] = useState({
     name: "",
