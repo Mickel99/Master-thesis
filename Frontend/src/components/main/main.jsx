@@ -54,7 +54,6 @@ const Main = () => {
 
   const [myDate, setmyDate] = useState(allProductsAPI);
   const { data, error, isLoading } = useGetproductByNameQuery(myDate);
-  // const [clickedProduct, setclickedProduct] = useState({});
 
   if (isLoading) {
     return (

@@ -1,5 +1,19 @@
-
-import { Box, Button, Card, CardActions, CardContent, CardMedia, CircularProgress, Container, Dialog, IconButton, Stack, ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  CircularProgress,
+  Container,
+  Dialog,
+  IconButton,
+  Stack,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
 import { useGetproductByNameQuery } from "../../Redux/product";
 import { Close } from "@mui/icons-material";
 import React, { useState } from "react";
@@ -11,28 +25,26 @@ import Header3 from "../header/header3";
 import Footer from "../footer/footer";
 import { useSearchParams } from "react-router-dom";
 import { cartActions } from "../../Redux/cartSlice";
-import { useDispatch } from 'react-redux';
-
-
+import { useDispatch } from "react-redux";
 
 const ProductPage = () => {
   const [alignment, setAlignment] = React.useState("left");
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
 
-  const dispatch = useDispatch(); // Lägg till detta för att initiera dispatch
+  const dispatch = useDispatch();
 
+  // Funktion för att lägga till en produkt i varukorgen
   const handleAddToCart = (item) => {
     dispatch(cartActions.addItemToCart(item));
-    // Skicka API-anrop här, t.ex. addToCartAPI(item);
   };
-
-
 
   const allProductsAPI = "products?populate=*";
   const casesCategoryAPI = "products?populate=*&filters[Category][$eq]=Cases";
-  const chargerCategoryAPI = "products?populate=*&filters[Category][$eq]=Charger";
-  const ScreenprotectorCategoryAPI = "products?populate=*&filters[Category][$eq]=Screen%20protector";
+  const chargerCategoryAPI =
+    "products?populate=*&filters[Category][$eq]=Charger";
+  const ScreenprotectorCategoryAPI =
+    "products?populate=*&filters[Category][$eq]=Screen%20protector";
 
   const [myDate, setmyDate] = useState(allProductsAPI);
   const [searchTerm, setSearchTerm] = useState("");
@@ -46,13 +58,7 @@ const ProductPage = () => {
     }
   }, [searchTermFromUrl]);
 
-  const { data, error, isLoading } = useGetproductByNameQuery(
-    myDate
-  );
-
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
+  const { data, error, isLoading } = useGetproductByNameQuery(myDate);
 
   const handleClose = () => {
     setOpen(false);
@@ -66,7 +72,9 @@ const ProductPage = () => {
   // Filtrera produkter baserat på sökterm
   const filteredProducts = searchTerm
     ? data?.data.filter((product) =>
-        product.attributes.productName.toLowerCase().includes(searchTerm.toLowerCase())
+        product.attributes.productName
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
       )
     : data?.data;
 
@@ -103,12 +111,11 @@ const ProductPage = () => {
       <Header1 />
 
       <Header2 />
-      
+
       <Header3 />
 
       <Container>
         <Stack alignItems={"center"} marginTop={5}>
-
           <ToggleButtonGroup
             value={alignment}
             exclusive
@@ -142,7 +149,7 @@ const ProductPage = () => {
             }}
           >
             <ToggleButton value={allProductsAPI} aria-label="left aligned">
-            All Products
+              All Products
             </ToggleButton>
             <ToggleButton value={casesCategoryAPI} aria-label="centered">
               Cases
@@ -150,11 +157,13 @@ const ProductPage = () => {
             <ToggleButton value={chargerCategoryAPI} aria-label="right aligned">
               Charger
             </ToggleButton>
-            <ToggleButton value={ScreenprotectorCategoryAPI} aria-label="right aligned">
-            Screen protector
+            <ToggleButton
+              value={ScreenprotectorCategoryAPI}
+              aria-label="right aligned"
+            >
+              Screen protector
             </ToggleButton>
           </ToggleButtonGroup>
-
         </Stack>
 
         <Stack
@@ -203,15 +212,14 @@ const ProductPage = () => {
                 </CardContent>
 
                 <CardActions>
-                <Button
-                  onClick={() => handleAddToCart(item)}
-                  sx={{ textTransform: "capitalize" }}
-                  size="large"
-                >
-                  Add to cart <ShoppingCartOutlinedIcon sx={{ mr: 1 }} />{" "}
-                </Button>
-
-              </CardActions>
+                  <Button
+                    onClick={() => handleAddToCart(item)}
+                    sx={{ textTransform: "capitalize" }}
+                    size="large"
+                  >
+                    Add to cart <ShoppingCartOutlinedIcon sx={{ mr: 1 }} />{" "}
+                  </Button>
+                </CardActions>
               </Card>
             );
           })}
@@ -235,7 +243,6 @@ const ProductPage = () => {
           >
             <Close />
           </IconButton>
-
         </Dialog>
       </Container>
 

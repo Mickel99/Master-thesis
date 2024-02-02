@@ -1,8 +1,10 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const Checkout = () => {
+  // Hämta varukorgen från Redux store
   const cartItems = useSelector((state) => state.cart.cartItems);
+  // State för kundinformation och om beställningen är placerad
   const [customerInfo, setCustomerInfo] = useState({
     name: "",
     email: "",
@@ -11,6 +13,7 @@ const Checkout = () => {
   });
   const [orderPlaced, setOrderPlaced] = useState(false);
 
+  // Hantera ändringar i kundinformationens formulär
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCustomerInfo((prevInfo) => ({
@@ -19,14 +22,15 @@ const Checkout = () => {
     }));
   };
 
+  // Funktion för att hantera när användaren klickar på "Place Order" -knappen
   const handlePlaceOrder = () => {
-
     console.log("Order placed:", { customerInfo, cartItems });
 
-
+    // Uppdatera state för att indikera att beställningen har placerats
     setOrderPlaced(true);
   };
 
+  // Funktion för att beräkna det totala priset för varukorgen
   const calculateTotalPrice = () => {
     return cartItems
       .reduce((total, item) => {
@@ -35,6 +39,7 @@ const Checkout = () => {
       .toFixed(2);
   };
 
+  // Om beställningen är placerad, så visas ett tack meddelande
   if (orderPlaced) {
     return (
       <div style={{ textAlign: "center", marginTop: "50px" }}>
@@ -48,7 +53,7 @@ const Checkout = () => {
   if (customerInfo.paymentMethod === "card") {
     paymentInfo = (
       <div>
-        <label style={{ display: "block", margin: "10px 0", color: "black"  }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black" }}>
           Card Number:
           <input
             type="text"
@@ -63,7 +68,7 @@ const Checkout = () => {
             }}
           />
         </label>
-        <label style={{ display: "block", margin: "10px 0", color: "black"  }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black" }}>
           Expiry Date:
           <input
             type="text"
@@ -78,7 +83,7 @@ const Checkout = () => {
             }}
           />
         </label>
-        <label style={{ display: "block", margin: "10px 0", color: "black"  }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black" }}>
           CVV:
           <input
             type="text"
@@ -98,7 +103,9 @@ const Checkout = () => {
   } else if (customerInfo.paymentMethod === "swish") {
     paymentInfo = (
       <div>
-        <p style={{ fontSize: "16px", margin: "0", color: "black"  }}>Swish to: 123 123 123</p>
+        <p style={{ fontSize: "16px", margin: "0", color: "black" }}>
+          Swish to: 123 123 123
+        </p>
         <img
           src="./src/Image/test.png"
           alt="Swish QR Code"
@@ -109,7 +116,9 @@ const Checkout = () => {
   } else if (customerInfo.paymentMethod === "klarna") {
     paymentInfo = (
       <div>
-        <p style={{ fontSize: "16px", margin: "0", color: "black"  }}>Pay with Klarna</p>
+        <p style={{ fontSize: "16px", margin: "0", color: "black" }}>
+          Pay with Klarna
+        </p>
         <img
           src=".\src\Image\klarna-og.png"
           alt="Klarna Logo"
@@ -174,7 +183,7 @@ const Checkout = () => {
         </strong>
       </div>
       <form style={{ marginTop: "20px" }}>
-        <label  style={{ display: "block", margin: "10px 0", color: "black" }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black" }}>
           Name:
           <input
             type="text"
@@ -190,7 +199,7 @@ const Checkout = () => {
             }}
           />
         </label>
-        <label style={{ display: "block", margin: "10px 0", color: "black"  }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black" }}>
           Email:
           <input
             type="email"
@@ -206,7 +215,7 @@ const Checkout = () => {
             }}
           />
         </label>
-        <label style={{ display: "block", margin: "10px 0", color: "black"  }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black" }}>
           Address:
           <input
             type="text"
@@ -219,11 +228,10 @@ const Checkout = () => {
               fontSize: "14px",
               borderRadius: "4px",
               border: "1px solid #ccc",
-              
             }}
           />
         </label>
-        <label style={{ display: "block", margin: "10px 0", color: "black"  }}>
+        <label style={{ display: "block", margin: "10px 0", color: "black" }}>
           Payment Method:
           <div>
             <label htmlFor="card" className="payment-option">

@@ -13,8 +13,6 @@ import SecurityUpdateGoodOutlinedIcon from "@mui/icons-material/SecurityUpdateGo
 import SearchIcon from "@mui/icons-material/Search";
 import Cart from "../myCart/Cart";
 
-
-
 const LogoLink = styled(Link)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -40,9 +38,14 @@ const SearchContainer = styled("div")(({ theme }) => ({
   marginLeft: theme.spacing(1),
   marginRight: theme.spacing(1),
   padding: theme.spacing(0.5),
-  backgroundColor: theme.palette.mode === "light" ? theme.palette.background.paper : theme.palette.secondary.dark,
-  color: theme.palette.mode === "light" ? theme.palette.text.primary : theme.palette.common.white,
-
+  backgroundColor:
+    theme.palette.mode === "light"
+      ? theme.palette.background.paper
+      : theme.palette.secondary.dark,
+  color:
+    theme.palette.mode === "light"
+      ? theme.palette.text.primary
+      : theme.palette.common.white,
 }));
 
 const SearchInput = styled(InputBase)(({ theme }) => ({
@@ -50,7 +53,10 @@ const SearchInput = styled(InputBase)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontSize: "1rem",
   padding: theme.spacing(1),
-  backgroundColor: theme.palette.mode === "light" ? theme.palette.background.paper : theme.palette.secondary.dark,
+  backgroundColor:
+    theme.palette.mode === "light"
+      ? theme.palette.background.paper
+      : theme.palette.secondary.dark,
   "&::placeholder": {
     color: theme.palette.text.secondary,
   },
@@ -68,7 +74,6 @@ const SearchButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-
 const Header2 = () => {
   const isSmallScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const [searchTerm, setSearchTerm] = useState("");
@@ -76,11 +81,12 @@ const Header2 = () => {
 
   const handleSearch = async () => {
     try {
-
+      // Fetch-anrop för att söka efter produkter baserat på söktermen
       const result = await fetch(
         `http://localhost:1337/api/products?populate=*&filters[productName][$regex]=${searchTerm}`
       );
 
+      // Kontrollera om anropet var framgångsrikt
       if (!result.ok) {
         console.error("Bad Request:", result.statusText);
         return;
@@ -88,7 +94,7 @@ const Header2 = () => {
 
       const data = await result.json();
 
-      // Kontrollera om data är null eller undefined innan du använder filter
+      // Kontrollera om data är null eller undefined innan man använder filter
       if (data && data.data) {
         // Implementera logik för att filtrera resultaten baserat på söktermen
         const filteredProducts = data.data.filter((product) =>
@@ -101,7 +107,6 @@ const Header2 = () => {
 
         // Kolla om filtrerade produkter finns
         if (filteredProducts.length > 0) {
-
           navigate(`/products?search=${searchTerm}`);
         } else {
           console.log("Inga resultat hittades.");
@@ -114,6 +119,7 @@ const Header2 = () => {
     }
   };
 
+  // Funktion som anropas när användaren trycker på Enter-tangenten i sökfältet
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       handleSearch();
@@ -124,8 +130,13 @@ const Header2 = () => {
     <Container sx={{ my: 3, display: "flex", justifyContent: "space-between" }}>
       <Stack>
         <LogoLink to="/" sx={{ marginRight: isSmallScreen ? 2 : 0 }}>
-          <SecurityUpdateGoodOutlinedIcon sx={{ marginLeft: 0.7, fontSize: "1.5rem" }} />
-          <Typography variant="body2" sx={{ fontSize: "1.2rem" }}> Trello</Typography>
+          <SecurityUpdateGoodOutlinedIcon
+            sx={{ marginLeft: 0.7, fontSize: "1.5rem" }}
+          />
+          <Typography variant="body2" sx={{ fontSize: "1.2rem" }}>
+            {" "}
+            Trello
+          </Typography>
         </LogoLink>
       </Stack>
       <CenteredSearchContainer>
@@ -141,7 +152,7 @@ const Header2 = () => {
           </SearchButton>
         </SearchContainer>
       </CenteredSearchContainer>
-<Cart />
+      <Cart />
     </Container>
   );
 };
