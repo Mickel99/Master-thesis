@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { addToCartAPI, removeFromCartAPI } from "./Cart/cartApiCall";
 
-// Hjälpfunktion för att hämta värden från local storage
+// Helper function to retrieve values from local storage
 const getCartItemsFromStorage = () => {
   return JSON.parse(localStorage.getItem("cartItems")) || [];
 };
@@ -19,14 +19,14 @@ const cartSlice = createSlice({
       );
 
       if (isItemExistInCart) {
-        // Om artikeln redan finns i kundvagnen, öka bara kvantiteten
+// If the item is already in the cart, just increase the quantity
         state.cartItems = state.cartItems.map((item) =>
           item.id === newItem.id
             ? { ...newItem, quantity: item.quantity + 1 }
             : item
         );
       } else {
-        // Om artikeln inte finns i kundvagnen, lägg till den med kvantitet 1
+// If the item is not in the cart, add it with quantity 1
         const newItemWithDetails = {
           ...newItem,
           quantity: 1,
@@ -35,7 +35,7 @@ const cartSlice = createSlice({
         };
         state.cartItems = [...state.cartItems, newItemWithDetails];
       }
-      // Uppdatera local storage med de nya cartItems
+// Update local storage with the new cartItems
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     removeItemFromCart(state, action) {
@@ -64,7 +64,7 @@ export const removeFromCartAsync = createAsyncThunk(
   "cart/removeFromCartAsync",
   async (id, { dispatch }) => {
     try {
-      // Utför API-anrop för att ta bort från kundvagnen och uppdatera state
+// Make API calls to remove from cart and update state
       await removeFromCartAPI(id);
       dispatch(cartActions.removeItemFromCart(id));
     } catch (error) {

@@ -81,12 +81,12 @@ const Header2 = () => {
 
   const handleSearch = async () => {
     try {
-      // Fetch-anrop för att söka efter produkter baserat på söktermen
+// Fetch call to search for products based on the search term
       const result = await fetch(
         `http://localhost:1337/api/products?populate=*&filters[productName][$regex]=${searchTerm}`
       );
 
-      // Kontrollera om anropet var framgångsrikt
+// Check if the call was successful
       if (!result.ok) {
         console.error("Bad Request:", result.statusText);
         return;
@@ -94,9 +94,9 @@ const Header2 = () => {
 
       const data = await result.json();
 
-      // Kontrollera om data är null eller undefined innan man använder filter
+// Check if data is null or undefined before applying filter
       if (data && data.data) {
-        // Implementera logik för att filtrera resultaten baserat på söktermen
+// Implement logic to filter the results based on the search term
         const filteredProducts = data.data.filter((product) =>
           product.attributes.productName
             .toLowerCase()
@@ -105,7 +105,7 @@ const Header2 = () => {
 
         console.log("Filtered Products:", filteredProducts);
 
-        // Kolla om filtrerade produkter finns
+// Check if filtered products exist
         if (filteredProducts.length > 0) {
           navigate(`/products?search=${searchTerm}`);
         } else {
@@ -119,7 +119,7 @@ const Header2 = () => {
     }
   };
 
-  // Funktion som anropas när användaren trycker på Enter-tangenten i sökfältet
+// Function called when the user presses the Enter key in the search field
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       handleSearch();

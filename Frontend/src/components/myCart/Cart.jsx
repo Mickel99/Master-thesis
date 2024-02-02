@@ -5,18 +5,18 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  // Hämta varukorgen från Redux store
+// Get the shopping cart from the Redux store
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
   const [isCartOpen, setCartOpen] = useState(false);
   const navigate = useNavigate();
 
-  // Funktion för att ta bort ett objekt från varukorgen
+// Function to remove an item from the cart
   const handleRemoveItem = (itemId) => {
     dispatch(cartActions.removeItemFromCart(itemId));
   };
 
-  // Funktion för att beräkna det totala priset för varukorgen
+// Function to calculate the total price of the cart
   const calculateTotalPrice = () => {
     return cartItems
       .reduce((total, item) => {

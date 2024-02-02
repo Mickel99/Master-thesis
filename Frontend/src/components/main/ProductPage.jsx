@@ -34,7 +34,7 @@ const ProductPage = () => {
 
   const dispatch = useDispatch();
 
-  // Funktion för att lägga till en produkt i varukorgen
+// Function to add a product to the cart
   const handleAddToCart = (item) => {
     dispatch(cartActions.addItemToCart(item));
   };
@@ -69,7 +69,7 @@ const ProductPage = () => {
     setmyDate(newValue);
   };
 
-  // Filtrera produkter baserat på sökterm
+// Filter products based on search term
   const filteredProducts = searchTerm
     ? data?.data.filter((product) =>
         product.attributes.productName

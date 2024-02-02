@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const Checkout = () => {
-  // Hämta varukorgen från Redux store
+// Get the shopping cart from the Redux store
   const cartItems = useSelector((state) => state.cart.cartItems);
-  // State för kundinformation och om beställningen är placerad
+// State for customer information and if the order is placed
   const [customerInfo, setCustomerInfo] = useState({
     name: "",
     email: "",
@@ -13,7 +13,7 @@ const Checkout = () => {
   });
   const [orderPlaced, setOrderPlaced] = useState(false);
 
-  // Hantera ändringar i kundinformationens formulär
+// Handle changes to the customer information form
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCustomerInfo((prevInfo) => ({
@@ -22,15 +22,15 @@ const Checkout = () => {
     }));
   };
 
-  // Funktion för att hantera när användaren klickar på "Place Order" -knappen
+// Function to handle when the user clicks the "Place Order" button
   const handlePlaceOrder = () => {
     console.log("Order placed:", { customerInfo, cartItems });
 
-    // Uppdatera state för att indikera att beställningen har placerats
+// Update state to indicate the order has been placed
     setOrderPlaced(true);
   };
 
-  // Funktion för att beräkna det totala priset för varukorgen
+// Function to calculate the total price of the cart
   const calculateTotalPrice = () => {
     return cartItems
       .reduce((total, item) => {
@@ -39,7 +39,7 @@ const Checkout = () => {
       .toFixed(2);
   };
 
-  // Om beställningen är placerad, så visas ett tack meddelande
+// If the order is placed, a thank you message is displayed
   if (orderPlaced) {
     return (
       <div style={{ textAlign: "center", marginTop: "50px" }}>
