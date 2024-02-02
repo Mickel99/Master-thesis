@@ -35,13 +35,11 @@ We've implemented robust product and inventory management using Strapi, ensuring
 
 Follow these simple steps to kickstart the project:
 
-### Start Frontend
+### Start Frontend and Backend
 
 ```bash
+# Start Frontend
 npm run dev
 
-
-### Start Backend
-```bash
+# Start Backend
 npm run develop
-
